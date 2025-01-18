@@ -1,0 +1,6 @@
+@YMYP4FirstApi.WebApi_HostAddress = http://localhost:5209
+
+GET {{YMYP4FirstApi.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
