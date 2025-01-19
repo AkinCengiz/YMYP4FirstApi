@@ -1,5 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
+using YMYP4FirstApi.Business.Abstract;
+using YMYP4FirstApi.Business.Concrete;
+using YMYP4FirstApi.DataAccess.Abstract;
 using YMYP4FirstApi.DataAccess.Concrete.EntityFramework;
 
 namespace YMYP4FirstApi.WebApi;
@@ -18,6 +21,11 @@ public class Program
 		{
 			option.UseSqlServer(builder.Configuration.GetConnectionString("akincengiz"));
 		});
+
+		builder.Services.AddScoped<ICategoryDal, EfCategoryDal>();
+		builder.Services.AddScoped<ICategoryService, CategoryManager>();
+
+
 		// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 		builder.Services.AddEndpointsApiExplorer();
 		builder.Services.AddSwaggerGen();

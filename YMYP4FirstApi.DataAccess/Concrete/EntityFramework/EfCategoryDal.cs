@@ -7,7 +7,7 @@ using YMYP4FirstApi.DataAccess.Abstract;
 using YMYP4FirstApi.Entity.Concrete;
 
 namespace YMYP4FirstApi.DataAccess.Concrete.EntityFramework;
-public class EfCategoryDal : EfGenericRepository<Category>
+public class EfCategoryDal : EfGenericRepository<Category>,ICategoryDal
 {
 	public EfCategoryDal(FirstApiDbContext context) : base(context)
 	{
