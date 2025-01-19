@@ -24,6 +24,8 @@ public class Program
 
 		builder.Services.AddScoped<ICategoryDal, EfCategoryDal>();
 		builder.Services.AddScoped<ICategoryService, CategoryManager>();
+		builder.Services.AddScoped<IProductDal, EfProductDal>();
+		builder.Services.AddScoped<IProductService, ProductManager>();
 
 
 		// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

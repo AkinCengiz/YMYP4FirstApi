@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using YMYP4FirstApi.Business.Abstract;
 using YMYP4FirstApi.Business.Concrete;
 using YMYP4FirstApi.Entity.Concrete;
@@ -64,5 +65,29 @@ public class CategoriesController : ControllerBase
 			return Ok("Kategori başarıyla silindi...");
 		}
 		return NotFound("Kategori bulunamadı");
+	}
+
+	[HttpGet("[action]")]
+	public IActionResult GetAllWithProducts()
+	{
+		var categories = _categoryService.GetAllQueryable().Include(x => x.Products)
+			.Select(x => new
+			{
+				x.Name,
+				Products = x.Products.Select(item => new
+				{
+					item.Name,
+					item.Price,
+					item.Stock
+				}).ToList()
+			}).ToList();
+		//var categories = _categoryService.GetAllWithProducts();
+
+		if (categories != null)
+		{
+			return Ok(categories);
+		}
+
+		return NotFound();
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using YMYP4FirstApi.Business.Abstract;
 using YMYP4FirstApi.DataAccess.Abstract;
 using YMYP4FirstApi.DataAccess.Concrete.EntityFramework;
@@ -48,5 +49,21 @@ public class CategoryManager : ICategoryService
 	public IQueryable<Category> GetAllQueryable()
 	{
 		return _categoryDal.GetAllQueryable();
+	}
+
+	public IQueryable<object> GetAllWithProducts()
+	{
+		var categories = _categoryDal.GetAllQueryable().Include(x => x.Products)
+			.Select(x => new
+			{
+				x.Name,
+				Products = x.Products.Select(item => new
+				{
+					item.Name,
+					item.Price,
+					item.Stock
+				}).ToList()
+			});
+		return categories;
 	}
 }

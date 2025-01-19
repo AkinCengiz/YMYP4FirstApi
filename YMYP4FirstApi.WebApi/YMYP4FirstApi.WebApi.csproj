@@ -18,4 +18,9 @@
     <ProjectReference Include="..\YMYP4FirstApi.Business\YMYP4FirstApi.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dal\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+
 </Project>
