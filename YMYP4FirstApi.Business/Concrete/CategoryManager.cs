@@ -4,38 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YMYP4FirstApi.Business.Abstract;
+using YMYP4FirstApi.DataAccess.Abstract;
+using YMYP4FirstApi.DataAccess.Concrete.EntityFramework;
 using YMYP4FirstApi.Entity.Concrete;
 
 namespace YMYP4FirstApi.Business.Concrete;
 public class CategoryManager : ICategoryService
 {
+	private ICategoryDal _categoryDal;
+	//private EfCategoryDal _category_Dal;
+
+	public CategoryManager(ICategoryDal categoryDal)
+	{
+		_categoryDal = categoryDal;
+	}
+
+
 	public void Insert(Category entity)
 	{
-		throw new NotImplementedException();
+		_categoryDal.Add(entity);
 	}
 
 	public void Modify(Category entity)
 	{
-		throw new NotImplementedException();
+		_categoryDal.Update(entity);
 	}
 
 	public void Remove(Category entity)
 	{
-		throw new NotImplementedException();
+		_categoryDal.Delete(entity);
 	}
 
 	public List<Category> GetAll()
 	{
-		throw new NotImplementedException();
+		return _categoryDal.GetAll();
 	}
 
 	public Category GetById(int id)
 	{
-		throw new NotImplementedException();
+		return _categoryDal.Get(x => x.Id == id);
 	}
 
 	public IQueryable<Category> GetAllQueryable()
 	{
-		throw new NotImplementedException();
+		return _categoryDal.GetAllQueryable();
 	}
 }

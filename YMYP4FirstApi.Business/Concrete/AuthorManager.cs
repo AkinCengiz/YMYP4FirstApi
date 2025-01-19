@@ -15,7 +15,7 @@ public class AuthorManager : IAuthorService
 {
 	private IAuthorDal _authorDal;
 
-	public AuthorManager(EfAuthorDal authorDal)
+	public AuthorManager(IAuthorDal authorDal)
 	{
 		_authorDal = authorDal;
 	}
@@ -23,36 +23,36 @@ public class AuthorManager : IAuthorService
 
 	public List<Author> GetAll()
 	{
-		throw new NotImplementedException();
+		return _authorDal.GetAll();
 	}
 
 	public IQueryable<Author> GetAllQueryable()
 	{
-		throw new NotImplementedException();
+		return _authorDal.GetAllQueryable();
 	}
 
 	public Author GetByEmailAddress(string email)
 	{
-		throw new NotImplementedException();
+		return _authorDal.Get(x => x.Email == email);
 	}
 
 	public Author GetById(int id)
 	{
-		throw new NotImplementedException();
+		return _authorDal.Get(x => x.Id == id);
 	}
 
 	public void Insert(Author entity)
 	{
-		throw new NotImplementedException();
+		_authorDal.Add(entity);
 	}
 
 	public void Modify(Author entity)
 	{
-		throw new NotImplementedException();
+		_authorDal.Update(entity);
 	}
 
 	public void Remove(Author entity)
 	{
-		throw new NotImplementedException();
+		_authorDal.Delete(entity);
 	}
 }
