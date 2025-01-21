@@ -26,6 +26,10 @@ public class Program
 		builder.Services.AddScoped<ICategoryService, CategoryManager>();
 		builder.Services.AddScoped<IProductDal, EfProductDal>();
 		builder.Services.AddScoped<IProductService, ProductManager>();
+		builder.Services.AddScoped<IAuthorDal, EfAuthorDal>();
+		builder.Services.AddScoped<IAuthorService, AuthorManager>();
+		builder.Services.AddScoped<IBookDal, EfBookDal>();
+		builder.Services.AddScoped<IBookService, BookManager>();
 
 
 		// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

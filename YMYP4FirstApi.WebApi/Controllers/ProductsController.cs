@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using YMYP4FirstApi.Business.Abstract;
+using YMYP4FirstApi.Entity.Concrete;
 
 namespace YMYP4FirstApi.WebApi.Controllers;
 [Route("api/[controller]")]
@@ -15,6 +17,35 @@ public class ProductsController : ControllerBase
 		_productService = productService;
 	}
 
+	[HttpPost]
+	public IActionResult Add(Product product)
+	{
+		_productService.Insert(product);
+		return Ok(product);
+	}
+
+	[HttpPut]
+	public IActionResult Update(Product product)
+	{
+		_productService.Modify(product);
+		return Ok(product);
+
+	}
+
+	[HttpDelete("{id}")]
+	public IActionResult Delete(int id)
+	{
+		var product = _productService.GetById(id);
+		if (product != null)
+		{
+			_productService.Remove(product);
+			return Ok("Ürün başarıyla silindi...");
+		}
+
+		return NotFound("Ürün bulunamadı...");
+	}
+
+
 	[HttpGet]
 	public IActionResult GetAll()
 	{
@@ -27,7 +58,7 @@ public class ProductsController : ControllerBase
 		return NotFound();
 	}
 
-	[HttpGet("id/{id}")]
+	[HttpGet("{id}")]
 	public IActionResult GetById(int id)
 	{
 		var product = _productService.GetById(id);
@@ -51,8 +82,8 @@ public class ProductsController : ControllerBase
 		return NotFound();
 	}
 
-	[HttpGet("[action]")]
-	public IActionResult GetGetAllByBetweenPrice(decimal min, decimal max)
+	[HttpGet("[action]/{min}/{max}")]
+	public IActionResult GetAllByBetweenPrice(decimal min, decimal max)
 	{
 		var products = _productService.GetAllByBetweenPrice(min, max);
 		if (products.Count > 0)
@@ -61,6 +92,29 @@ public class ProductsController : ControllerBase
 		}
 
 		return NotFound("Bu fiyat aralığında ürün bulunamadı...");
+	}
+
+	[HttpGet("[action]/{price}")]
+	public IActionResult GetAllByHigherThanPrice(decimal price)
+	{
+		var products = _productService.GetAllByHigherThanPrice(price);
+		if (products.Count == 0)
+		{
+			return NotFound("Belirtilen fiyattan yüksek fiyatlı ürün bulunamadı...");
+		}
+		return Ok(products);
+	}
+
+	[HttpGet("[action]/{price}")]
+	public IActionResult GetAllByLowerThanPrice(decimal price)
+	{
+		var products = _productService.GetAllByLowerThanPrice(price);
+		if (products.Count != 0)
+		{
+			return Ok(products);
+		}
+
+		return NotFound("Belirtilen fiyattan düşük fiyatlı ürün bulunamadı...");
 	}
 
 

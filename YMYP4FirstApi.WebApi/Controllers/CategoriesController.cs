@@ -29,7 +29,7 @@ public class CategoriesController : ControllerBase
 		return NotFound();
 	}
 
-	[HttpGet("[action]/{id}")]
+	[HttpGet("{id}")]
 	public IActionResult GetById(int id)
 	{
 		var category = _categoryService.GetById(id);
