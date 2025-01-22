@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using YMYP4FirstApi.Entity.Abstract;
 
 namespace YMYP4FirstApi.Entity.Concrete;
-public class Book : IEntity
+public class Book : BaseEntity
 {
 	public int Id { get; set; }
 	public string Title { get; set; }

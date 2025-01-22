@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using YMYP4FirstApi.Entity.Abstract;
 
 namespace YMYP4FirstApi.Entity.Concrete;
-public class Author : IEntity
+public class Author : BaseEntity
 {
 	public int Id { get; set; }
 	public string FirstName { get; set; }
